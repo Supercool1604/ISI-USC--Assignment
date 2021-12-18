@@ -1,33 +1,33 @@
-# Install all the requirements:
+* Install all the requirements:
 
 pip3 install -r requirements.txt
 
-# Run the code:
+* Run the code:
 
 python3 ISI_Spring2022.py 
 
-# Documentation on Code:
+* Documentation on Code:
 
-## Steps:
-### Importing necessary libraries
-### Load the Telegram data in JSON
-### Extract only the messages component of data
-### Convert JSON messages into pandas DataFrame
-### Replace emojis by demojizing them and adding their meaning to the text.
-### Drop unnecessary features like ids of message, fromPerson, toPerson etc.
-### Definition of the following function:
-#### isEnglish() function takes into a string/text/message and returns true if it is in English and False otherwise (Made use of detect from langid library )
-#### filterOnLetters() function return True if the text/message/string contains "SHIB" or "DOGE", returns False otherwise
+  * Steps:
+    * Importing necessary libraries
+    * Load the Telegram data in JSON
+    * Extract only the messages component of data
+    * Convert JSON messages into pandas DataFrame
+    * Replace emojis by demojizing them and adding their meaning to the text.
+    * Drop unnecessary features like ids of message, fromPerson, toPerson etc.
+    * Definition of the following function:
+        * isEnglish() function takes into a string/text/message and returns true if it is in English and False otherwise (Made use of detect from langid library )
+        * filterOnLetters() function return True if the text/message/string contains "SHIB" or "DOGE", returns False otherwise
 
-### Drop all the non english text rows from dataframe using isEnglish function defined above
-### Apply filterOnLetters function on the text column of our dataframe, dropping all the rows whose text doesn't contain "SHIB" or "DOGE"
-### Use TextBlob lexicon to calculate the sentiment score of each message and further categorizing each message into "positive", "negative" and "neutral" according to the scores assigned by TextBlob
-### Use Afinn lexicon to calculate the sentiment score of each message and further categorizing each message into "positive", "negative" and "neutral" according to the scores assigned by Afinn
-### Use Vader lexicon to calculate the sentiment score of each message and further categorizing each message into "positive", "negative" and "neutral" according to the scores assigned by Vader
-#### Above three lexicons are used in order to first compare which will suit better to our dataset.
-### Adding one more row to our dataset categorizing each message to know if it contains only "DOGE" or only "SHIB" or both.
-### Comparison of Afinn, TextBlob and Vader
-### Plots and Analysis
+    * Drop all the non english text rows from dataframe using isEnglish function defined above
+    * Apply filterOnLetters function on the text column of our dataframe, dropping all the rows whose text doesn't contain "SHIB" or "DOGE"
+    * Use TextBlob lexicon to calculate the sentiment score of each message and further categorizing each message into "positive", "negative" and "neutral" according to the scores assigned by TextBlob
+    * Use Afinn lexicon to calculate the sentiment score of each message and further categorizing each message into "positive", "negative" and "neutral" according to the scores assigned by Afinn
+    * Use Vader lexicon to calculate the sentiment score of each message and further categorizing each message into "positive", "negative" and "neutral" according to the scores assigned by Vader
+        * Above three lexicons are used in order to first compare which will suit better to our dataset.
+    * Adding one more row to our dataset categorizing each message to know if it contains only "DOGE" or only "SHIB" or both.
+    * Comparison of Afinn, TextBlob and Vader
+    * Plots and Analysis
 
 
 # Observations:
