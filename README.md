@@ -30,8 +30,8 @@ python3 ISI_Spring2022.py
 
 # Observations:
 ### Initially, we had 49436 rows/messages in our dataframe originally taken from telegram
-### After removing non-english sentences, we had 32802 messages left with us in the dataframe
-### Further, on applying the "DOGE" and "SHIB" filter on the dataFrame, we are left with only 197 messages
+### After removing non-english sentences, we had 40388 messages left with us in the dataframe
+### Further, on applying the "DOGE" and "SHIB" filter on the dataFrame, we are left with only 370 messages
 ### Most positive sentiment according to Afinn doesn't really seem like a positive message as the user is disappointed with the SHIB coin.
 ### Most negative sentiment according to Afinn doesn't really sound like a negative message as the user is being neutral
 ### While looking at most positive and most negative messages by TextBlob and Afinn, we observe that TextBlob is indeed actually better scoring the text in terms of sentiments.
