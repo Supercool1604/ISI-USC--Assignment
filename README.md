@@ -30,16 +30,16 @@ python3 ISI_Spring2022.py
     * Plots and Analysis
 
 
-# Observations:
-### Initially, we had 49436 rows/messages in our dataframe originally taken from telegram
-### After removing non-english sentences, we had 40388 messages left with us in the dataframe
-### Further, on applying the "DOGE" and "SHIB" filter on the dataFrame, we are left with only around 2500 messages
-### Most positive sentiment according to Afinn doesn't really seem like a positive message as the user is disappointed with the SHIB coin.
-### Most negative sentiment according to Afinn doesn't really sound like a negative message as the user is being neutral
-### While looking at most positive and most negative messages by TextBlob, Afinn and Vader, we observe that Vader is indeed actually better scoring the text in terms of sentiments.
-### Number of messages increase suddenly on 8th and decrease post 11th, this might be an indicator of price change in either "DOGE" or "SHIB" or both, as people start discussing more about these in the given date range
-### In the date range [9-13], there are more positive sentiment messages in the group, which might be an indicator of people benefitting of "DOGE" or "SHIB"
-### Further we can observe indiviudal sentiments of DOGE and SHIB from averageSentimentPerDayPlot-SHIB.png and averageSentimentPerDayPlot-DOGE.png plots.
+* Observations:
+    * Initially, we had 49436 rows/messages in our dataframe originally taken from telegram
+    * After removing non-english sentences, we had 40388 messages left with us in the dataframe
+    * Further, on applying the "DOGE" and "SHIB" filter on the dataFrame, we are left with only around 2500 messages
+    * Most positive sentiment according to Afinn doesn't really seem like a positive message as the user is disappointed with the SHIB coin.
+    * Most negative sentiment according to Afinn doesn't really sound like a negative message as the user is being neutral
+    * While looking at most positive and most negative messages by TextBlob, Afinn and Vader, we observe that Vader is indeed actually better scoring the text in terms of sentiments.
+    * Number of messages increase suddenly on 8th and decrease post 11th, this might be an indicator of price change in either "DOGE" or "SHIB" or both, as people start discussing more about these in the given date range
+    * In the date range [9-13], there are more positive sentiment messages in the group, which might be an indicator of people benefitting of "DOGE" or "SHIB"
+    * Further we can observe indiviudal sentiments of DOGE and SHIB from averageSentimentPerDayPlot-SHIB.png and averageSentimentPerDayPlot-DOGE.png plots.
 
 ![alt text](TotalMessagesPerDay.png)
 
