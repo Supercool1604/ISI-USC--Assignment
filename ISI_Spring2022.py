@@ -20,6 +20,7 @@ import langid
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon')
+import emoji
 
 
 # ## Loading the Telegram data in JSON
@@ -45,6 +46,7 @@ messages = data['messages']
 
 
 messagesData = pd.DataFrame(messages)
+messagesData.head()
 
 
 # ### A look at the dataframe
@@ -53,6 +55,10 @@ messagesData = pd.DataFrame(messages)
 
 
 messagesData.head(5)
+for index, dataPoint in messagesData.iterrows():
+    if not pd.isna(dataPoint['sticker_emoji']):
+        print(emoji.demojize(dataPoint['sticker_emoji'], delimiters=("", "")))
+        dataPoint['text'] += emoji.demojize(dataPoint['sticker_emoji'], delimiters=("", ""))
 
 
 # ### Dropping unnecessary features like ids of message, fromPerson, toPerson etc.
@@ -122,7 +128,7 @@ messagesData
 
 def filterOnLetters(text, word1 = "SHIB", word2="DOGE"):
 #     words = text.split()
-    if text.find(word1)!=-1 or text.find(word2)!=-1:
+    if text.lower().find(word1.lower())!=-1 or text.lower().find(word2.lower())!=-1:
         return True
     return False
 
@@ -148,7 +154,7 @@ messagesData
 # ### Observation:
 # #### Initially, we had 49436 rows/messages in our dataframe originally taken from telegram
 # #### After removing non-english sentences, we had 40388 messages left with us in the dataframe
-# #### Further, on applying the "DOGE" and "SHIB" filter on the dataFrame, we are left with only 370 messages
+# #### Further, on applying the "DOGE" and "SHIB" filter on the dataFrame, we are left with only 2509 messages
 
 # ### Unsupervised Sentiment Analysis -
 # #### Using TextBlob lexicon to calculate the sentiment score of each message and further categorizing each message into "positive", "negative" and "neutral" according to the scores assigned by TextBlob
@@ -195,24 +201,11 @@ messagesData
 
 
 # ### Adding one more row to our dataset categorizing each message to know if it contains only "DOGE" or only "SHIB" or both.
-# #### categorizeOnDogeOrShib is defined in order to check in a text/message/string if it contains "DOGE" or "SHIB" or both.
 
 # In[ ]:
 
 
-def categorizeOnDogeOrShib(text):
-    words = text.split()
-    if "DOGE" in words and "SHIB" in words:
-        return "DOGESHIB"
-    elif "DOGE" in words:
-        return "DOGE"
-    return "SHIB"
-
-
-# In[ ]:
-
-
-messagesData['DOGE OR SHIB'] = pd.DataFrame(["DOGESHIB" if "DOGE" in words and "SHIB" in words else "DOGE" if "DOGE" in words else "SHIB" for words in messagesData['text']])
+messagesData['DOGE OR SHIB'] = pd.DataFrame(["DOGESHIB" if "doge" in words.lower() and "shib" in words.lower() else "DOGE" if "doge" in words.lower() else "SHIB"  for words in messagesData['text']])
 
 
 # ### Grouping the data according to the new feature for comparison of the two lexicons being used
@@ -229,12 +222,12 @@ messagesData.groupby(by=['DOGE OR SHIB']).describe()
 
 
 # Picking the message index with most Afinn polarity i.e. most positive sentiment message according to Afinn.
-pos_idx = messagesData[(messagesData.Polarity_Afinn == 7)].index[0]
+pos_idx = messagesData[(messagesData.Polarity_Afinn == max(messagesData.Polarity_Afinn))].index[0]
 
 # Picking the message index with least Afinn polarity i.e. most negative sentiment message according to Afinn.
-neg_idx = messagesData[(messagesData.Polarity_Afinn == -7)].index[0]
+neg_idx = messagesData[(messagesData.Polarity_Afinn == min(messagesData.Polarity_Afinn))].index[0]
 
-# Scores +7 and -7 are taken from max and min values in the description of groupby above.
+# Scores +23 and -19 are taken from max and min values in the description of groupby above.
 
 print(messagesData.iloc[pos_idx][['text']][0])
 print()
@@ -249,10 +242,10 @@ print(messagesData.iloc[neg_idx][['text']][0])
 
 
 # Picking the message index with most TextBlob polarity i.e. most positive sentiment message according to TextBlob.
-pos_idx = messagesData[(messagesData.Polarity_TextBlob == 1)].index[0]
+pos_idx = messagesData[(messagesData.Polarity_TextBlob == max(messagesData.Polarity_TextBlob))].index[0]
 
 # Picking the message index with least TextBlob polarity i.e. most negative sentiment message according to TextBlob.
-neg_idx = messagesData[(messagesData.Polarity_TextBlob == -1)].index[0]
+neg_idx = messagesData[(messagesData.Polarity_TextBlob == min(messagesData.Polarity_TextBlob))].index[0]
 
 # Scores +1 and -1 are taken from max and min values in the description of groupby above, moreover, TextBlob gives a normalised score.
 
@@ -265,10 +258,10 @@ print(messagesData.iloc[neg_idx][['text']][0])
 
 
 # Picking the message index with most TextBlob polarity i.e. most positive sentiment message according to TextBlob.
-pos_idx = messagesData[(messagesData.Polarity_Vader == 0.8951)].index[0]
+pos_idx = messagesData[(messagesData.Polarity_Vader == max(messagesData.Polarity_Vader))].index[0]
 
 # Picking the message index with least TextBlob polarity i.e. most negative sentiment message according to TextBlob.
-neg_idx = messagesData[(messagesData.Polarity_Vader == -0.8519)].index[0]
+neg_idx = messagesData[(messagesData.Polarity_Vader == min(messagesData.Polarity_Vader))].index[0]
 
 # Scores +1 and -1 are taken from max and min values in the description of groupby above, moreover, TextBlob gives a normalised score.
 
@@ -348,7 +341,7 @@ fig  = px.bar(
 )
 fig.update_traces(marker_color='green')
 fig.show()
-fig.write_image("TotalMessagesPerDate.png")
+fig.write_image("TotalMessagesPerDay.png")
 
 
 # ### Observations:
