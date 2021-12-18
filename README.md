@@ -40,3 +40,10 @@ python3 ISI_Spring2022.py
 ### Number of messages increase suddenly on 8th and decrease post 11th, this might be an indicator of price change in either "DOGE" or "SHIB" or both, as people start discussing more about these in the given date range
 ### In the date range [9-13], there are more positive sentiment messages in the group, which might be an indicator of people benefitting of "DOGE" or "SHIB"
 ### Further we can observe indiviudal sentiments of DOGE and SHIB from averageSentimentPerDayPlot-SHIB.png and averageSentimentPerDayPlot-DOGE.png plots.
+
+![alt text](TotalMessagesPerDay.png)
+
+![alt text](averageSentimentPerDayPlot.png)
+
+![alt text](averageSentimentPerDayPlot-SHIB.png)
+![alt text](averageSentimentPerDayPlot-DOGE.png)
